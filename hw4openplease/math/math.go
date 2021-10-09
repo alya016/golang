@@ -5,15 +5,14 @@ import (
 	"homework/facility"
 )
 
-
-
-func CheckProfitability(f *facility.Facility) bool{
+func CheckProfitability(f *facility.Facility) (bool, float64){
 	distance := CalculateDistance(f.Coordinates)
 	const k = 25.00 //коэфицент затраты бензина на расстояние
 	difference := f.PaymentFromClient - (distance*k + f.SalaryToGuard)
 	if difference >= 1000{
-		return true
-	} else {return false}
+		return true, difference
+	} 
+		return false, difference
 }
 func CalculateDistance(x []float64)float64{
 	Square1 := 0.00

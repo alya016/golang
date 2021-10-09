@@ -5,40 +5,54 @@ import (
 	"homework/stringt"
 	"homework/math"
 	"homework/facility"
-	// "encoding/json"
+	"encoding/json"
+	"log"
 )
 
-
+type Output struct{
+	Isprofitable bool `json:"facility_is_profitable"`
+	Profit float64 `json:"profit"`
+}
 
 
 func main(){
 
-	facility1 := facility.Facility{
+	facility2 := facility.Facility{
 		Town: "Shu",
 		Coordinates: []float64 {2.00,3.00,8.00,9.00,},
-		SalaryToGuard: 10000.00,
-		PaymentFromClient: 12000.00,
+		SalaryToGuard: 8000,
+		PaymentFromClient: 8020,
 	}
-
-
-	if stringt.CheckExcistenceFacility(facility1.Town){
-		profitability := math.CheckProfitability(&facility1)
-		fmt.Println("Facility is profitable:",profitability)
-	} 
-	// else {
-	// 	fmt.Printf("%s is not current facility of our company",facility1.Town)
+	// facility1 := facility.Facility{
+	// 	Town: "Merke",
+	// 	Coordinates: []float64 {2.00,3.00,8.00,9.00,},
+	// 	SalaryToGuard: 10000.00,
+	// 	PaymentFromClient: 12000.00,
 	// }
 
-	// profitability, err := json.Marshal(profitability)
 
+
+//проверяем наличие филиала в списке обслуживаемых на данный момент если необслуживается
+// нет смысла проверять рентабильность, выходим из программы
+	if stringt.CheckExcistenceFacility(facility2.Town) == false{
+		fmt.Printf("%s is not current facility of our company",facility2.Town)
+		return }
+//отправляем в math рассчитать рентабельность и записываем в переменные
+	profitability,profit := math.CheckProfitability(&facility2)
+
+//заполняем структуру и форматируем в json формат, проверяя на ошибку чтобы данные не были пустыми
+	output := Output{
+		Isprofitable: profitability,
+		Profit: profit,
+	}
+	json_data, err := json.Marshal(output)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+//программа выводит json данные  	
+	fmt.Println(string(json_data))
 
 }
 
-
-	// profitability := math.CheckProfitability(facility2)
-	// facility2 := Facility{
-	// 	Town: "Merke",
-	// 	DistancesToGuard: 100,
-	// 	SalaryToGuard: 8000,
-	// 	PaymentFromClient: 10000,
-	// }		
+	
