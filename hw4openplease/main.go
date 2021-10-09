@@ -52,7 +52,6 @@ func main(){
 
 //программа выводит json данные  	
 	fmt.Println(string(json_data))
-	math.TestCheckProfitability(true,1787.8679656440363)
 }
 
 	
