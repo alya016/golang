@@ -17,28 +17,28 @@ type Output struct{
 
 func main(){
 
-	facility2 := facility.Facility{
-		Town: "Shu",
-		Coordinates: []float64 {2.00,3.00,8.00,9.00,},
-		SalaryToGuard: 8000,
-		PaymentFromClient: 8020,
-	}
-	// facility1 := facility.Facility{
+	// facility2 := facility.Facility{
 	// 	Town: "Merke",
 	// 	Coordinates: []float64 {2.00,3.00,8.00,9.00,},
-	// 	SalaryToGuard: 10000.00,
-	// 	PaymentFromClient: 12000.00,
+	// 	SalaryToGuard: 8000,
+	// 	PaymentFromClient: 8020,
 	// }
+	facility1 := facility.Facility{
+		Town: "Shu",
+		Coordinates: []float64 {2.00,3.00,8.00,9.00,},
+		SalaryToGuard: 10000.00,
+		PaymentFromClient: 12000.00,
+	}
 
 
 
 //проверяем наличие филиала в списке обслуживаемых на данный момент если необслуживается
 // нет смысла проверять рентабильность, выходим из программы
-	if stringt.CheckExcistenceFacility(facility2.Town) == false{
-		fmt.Printf("%s is not current facility of our company",facility2.Town)
+	if stringt.CheckExcistenceFacility(facility1.Town) == false{
+		fmt.Printf("%s is not current facility of our company",facility1.Town)
 		return }
 //отправляем в math рассчитать рентабельность и записываем в переменные
-	profitability,profit := math.CheckProfitability(&facility2)
+	profitability,profit := math.CheckProfitability(&facility1)
 
 //заполняем структуру и форматируем в json формат, проверяя на ошибку чтобы данные не были пустыми
 	output := Output{
@@ -52,7 +52,7 @@ func main(){
 
 //программа выводит json данные  	
 	fmt.Println(string(json_data))
-
+	math.TestCheckProfitability(true,1787.8679656440363)
 }
 
 	
